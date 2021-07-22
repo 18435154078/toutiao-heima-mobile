@@ -1,0 +1,55 @@
+@import "./icon.less";
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f5f7f9;
+}
+.van-field__left-icon {
+    width: 30px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    .toutiao {
+        font-size: 21px;
+    }
+    .van-icon {
+        font-size: 18px;
+    }
+  }
+.van-nav-bar {
+    background: #1989fa;
+    .van-icon, .van-nav-bar__title {
+        color: #fff !important;
+    }   
+}
+.edit-channel-animate {
+  animation: shake .3s infinite;
+}
+@keyframes shake {
+  0% {
+    transform: rotate(1deg);
+  }
+  14% {
+    transform: rotate(2deg);
+  }
+  29% {
+    transform: rotate(1deg);
+  }
+  43% {
+    transform: rotate(0deg);
+  }
+  56% {
+    transform: rotate(-1deg);
+  }
+  70% {
+    transform: rotate(-2deg);
+  }
+  84% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
