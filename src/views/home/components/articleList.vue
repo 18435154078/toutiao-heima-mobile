@@ -31,6 +31,7 @@
 <script>
 import { getRecomList } from '@/api/article'
 import ArticleItem from '@/components/ArticleItem'
+import { debounce } from 'lodash'
 export default {
   name: 'home-article-list',
   data() {
@@ -41,7 +42,8 @@ export default {
       list:[],
       articleList: [],
       isDisabled: false,
-      nextpage: null
+      nextpage: null,
+      scrollTop: 0
     }
   },
   props: {
@@ -54,7 +56,8 @@ export default {
     ArticleItem
   },
   mounted() {
-    this.$refs['article-list'].$el.addEventListener('scroll', this.handleScroll, true)
+    this.$refs['article-list'].$el.scrollTop = this.scrollTop
+    this.$refs['article-list'].$el.addEventListener('scroll', debounce(this.handleScroll, 50), true)
   },
   methods: {
     async onRefresh() {
@@ -84,12 +87,27 @@ export default {
       }
     },
     handleScroll() {
+      this.scrollTop = this.$refs['article-list'].$el.scrollTop
       if(this.$refs['article-list'].$el.scrollTop == 0) {
         this.isDisabled = false
       } else {
         this.isDisabled = true
       }
     }
+  },
+  // watch: {
+  //   $route: function(value){
+  //     if(value.path === '/') {
+  //       this.$refs['article-list'].$el.scrollTop = this.scrollTop
+  //     }
+  //   }
+  // },
+  activated() {
+    console.log('进入组件')
+    this.$refs['article-list'].$el.scrollTop = this.scrollTop
+  },
+  deactivated(){
+    console.log('离开组件')
   }
 }
 </script>

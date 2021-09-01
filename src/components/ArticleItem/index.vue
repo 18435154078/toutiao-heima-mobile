@@ -1,6 +1,9 @@
 <template>
   <div class="article-item">
-    <van-cell class="article-item-wrap">
+    <van-cell
+      class="article-item-wrap"
+      :to="{name: 'Article', params: {articleId: article.art_id}}"
+    >
       <template #title>
         <div class="title">{{ article.title }}</div>
         <div class="cover-list" v-if="article.cover.type === 3">
@@ -42,7 +45,9 @@ export default {
       required: true
     }
   },
-  mounted() { },
+  mounted() {
+    // console.log(this.article)
+  },
   methods: {}
 }
 </script>

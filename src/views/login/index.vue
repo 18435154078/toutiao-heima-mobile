@@ -7,60 +7,70 @@
       @click-left="$router.back()"
     />
     <!-- form表单 -->
-    <van-form
-      validate-first
-      @failed="onFailed"
-      @submit="onSubmit"
-      :show-error="false"
-      :show-error-message="false"
-      ref="user-form"
+    <van-pull-refresh
+      v-model="isLoading"
+      @refresh="onRefresh"
+      pulling-text=" "
+      loosing-text=" "
+      loading-text=" "
+      success-text=" "
+      head-height="0"
     >
-      <van-field
-        v-model="user.mobile"
-        name="用户名"
-        label=""
-        left-icon="manager-o"
-        placeholder="用户名"
-        :rules="formRules.mobile"
-      />
-      <van-field
-        v-model="user.code"
-        type="text"
-        name="验证码"
-        label=""
-        icon-prefix="toutiao"
-        placeholder="验证码"
-        left-icon="mima"
-        class="code-form"
-        :rules="formRules.code"
+      <van-form
+        validate-first
+        @failed="onFailed"
+        @submit="onSubmit"
+        :show-error="false"
+        :show-error-message="false"
+        ref="user-form"
       >
-        <template #button>
-          <van-button size="small" type="default" round color="#eee" class="code" @click.prevent="sendCode">
-            <span v-if="isCode">发送验证码</span>
-            <van-count-down
-              v-else
-              :time="60 * 1000"
-              format="ss s"
-              @finish="isCode = true"
-              class="count"
-            />
-          </van-button>
-        </template>
-      </van-field>
-      <div style="margin: 16px;" class="login-btn-wrap">
-        <van-button
-          block
-          type="info"
-          native-type="submit"
-          class="login-btn"
-          loading-type="spinner"
-          :loading="loginLoading"
-          loading-text="登录中..."
+        <van-field
+          v-model="user.mobile"
+          name="用户名"
+          label=""
+          left-icon="manager-o"
+          placeholder="用户名"
+          :rules="formRules.mobile"
+        />
+        <van-field
+          v-model="user.code"
+          type="text"
+          name="验证码"
+          label=""
+          icon-prefix="toutiao"
+          placeholder="验证码"
+          left-icon="mima"
+          class="code-form"
+          :rules="formRules.code"
         >
-          提交
-        </van-button>
-      </div>
-    </van-form>
+          <template #button>
+            <van-button size="small" type="default" round color="#eee" class="code" @click.prevent="sendCode">
+              <span v-if="isCode">发送验证码</span>
+              <van-count-down
+                v-else
+                :time="60 * 1000"
+                format="ss s"
+                @finish="isCode = true"
+                class="count"
+              />
+            </van-button>
+          </template>
+        </van-field>
+        <div style="margin: 16px;" class="login-btn-wrap">
+          <van-button
+            block
+            type="info"
+            native-type="submit"
+            class="login-btn"
+            loading-type="spinner"
+            :loading="loginLoading"
+            loading-text="登录中..."
+          >
+            提交
+          </van-button>
+        </div>
+      </van-form>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -85,7 +95,8 @@ export default {
         ]
       },
       isCode: true,
-      loginLoading: false
+      loginLoading: false,
+      isLoading: false
     }
   },
   mounted() {
@@ -104,9 +115,8 @@ export default {
         this.$store.commit('SET_TOKEN', res.data.data)
         this.$toast.success('登录成功')
         // this.loginLoading = false
-        this.$router.push('/my')
+        this.$router.back()
       } catch(err) {
-        console.log(11)
         this.$toast.fail('手机号或验证码错误');
       }
     },
@@ -143,6 +153,10 @@ export default {
           position: 'top'
         })
       }
+    },
+
+    onRefresh() {
+      this.isLoading = false
     }
   }
 }

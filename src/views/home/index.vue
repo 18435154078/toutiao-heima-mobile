@@ -1,13 +1,24 @@
 <template>
   <div class="home">
+    <!-- 头部 -->
     <van-nav-bar class="header">
       <template #left>
         <img src="./image/logo.png" alt="" class="logo">
       </template>
       <template #right>
-        <van-button icon="search" type="primary" round class="search-btn">搜索</van-button>
+        <van-button
+          icon="search"
+          type="primary"
+          round
+          class="search-btn"
+          to="/search"
+        >
+          搜索
+        </van-button>
       </template>
     </van-nav-bar>
+
+    <!-- 导航 -->
     <div class="nav">
       <van-tabs
         v-model="active"
@@ -28,6 +39,8 @@
         <van-icon class-prefix="toutiao" name="menu" class="menu-icon" />
       </div>
     </div>
+
+    <!-- 编辑频道 -->
     <van-popup
       v-model="show"
       :closeable="false"
@@ -51,7 +64,7 @@ export default {
     return {
       channels: [],
       active: 0,
-      show: false,
+      show: false
     }
   },
   components: {

@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login')
+    component: () => import('@/views/login/')
   },
   {
     path: '/',
@@ -34,11 +34,32 @@ const routes = [
         component: () => import('@/views/my')
       }
     ]
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('@/views/search/')
+  },
+  {
+    path: '/article/:articleId',
+    name: 'Article',
+    component: () => import('@/views/article/'),
+    props: true
+  },
+  {
+    path: '/editUserInfo',
+    name: 'edit-user-info',
+    component: () => import('@/views/edit-user-info/')
+  },
+  {
+    path: '/user/chat',
+    name: 'userChat',
+    component: () => import('@/views/user-chat/')
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

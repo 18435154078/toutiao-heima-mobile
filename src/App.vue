@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive :include="['layout']">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

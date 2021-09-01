@@ -12,7 +12,7 @@
             />
             <span class="neckname">{{ info.name || '用户' }}</span>
           </div>
-          <div class="right">编辑资料</div>
+          <div class="right" @click="$router.push('/editUserInfo')">编辑资料</div>
         </div>
         <div class="user-message">
           <div class="item">
@@ -48,7 +48,7 @@
       </div>
     </div>
     <van-cell title="消息通知" is-link url="" class="msg-noti" v-if="token" />
-    <van-cell title="小智同学" is-link url="" class="robot" />
+    <van-cell title="小智同学" is-link url="/user/chat" class="robot" />
     <van-button plain type="default" block class="log-out" @click="log_out" v-if="token">退出登录</van-button>
   </div>
 </template>
@@ -78,6 +78,7 @@ export default {
       }
       getUserInfo().then(res => {
         this.info = res.data.data
+        this.$store.commit('SET_USER', this.info)
       })
     },
     onCollect() {
